@@ -1,0 +1,37 @@
+cd '/home/danny/cuboulder/school/2026-fall-semester/APPM4370/hw/hw4/'
+
+set term png
+set output "p2-a.png"
+
+# gnuplot file
+reset
+
+set terminal pngcairo size 900,400 font "Sans,10"
+set grid
+
+set multiplot layout 1, 3 title "U(d) Sketches, {/Symbol m} = 1" font "Sans,14"
+
+set xlabel "Difference (d)" font "Sans,11"
+set ylabel "U(d)" font "Sans,11"
+set xrange [-3:3]
+set yrange [-5:5]
+unset key
+
+mu = 1.0
+
+lambda_leaky = -1.5
+set title "Leaky Integrator ({/Symbol l} < 0)" font "Sans,12"
+U_leaky(x) = -(lambda_leaky / 2.0) * x**2 - mu * x
+plot U_leaky(x) lw 2.5 lc rgb "#1f77b4"
+
+set title "Perfect Diffusion ({/Symbol l} = 0)" font "Sans,12"
+U_perfect(x) = - mu * x
+plot U_perfect(x) lw 2.5 lc rgb "#2ca02c"
+
+lambda_unstable = 1.0
+set title "Unstable Integrator ({/Symbol l} > 0)" font "Sans,12"
+U_unstable(x) = -(lambda_unstable / 2.0) * x**2 - mu * x
+plot U_unstable(x) lw 2.5 lc rgb "#d62728"
+
+unset multiplot
+set output
